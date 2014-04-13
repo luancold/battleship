@@ -22,7 +22,8 @@ int main(int argc, char *argv[]){
     for(i = 0; i < 10; i++){
         printf("%c ",65 + i);
         for(j = 0; j < 10; j++){
-            printf("%i ",map_1[i][j]);
+            if(map_1[i][j] == 0)
+                    printf("%c ",126);
         }
         printf("\n");
     }
