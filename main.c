@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "table.h"
 
 // Funcao para renderizar cada frame
 int RenderFrame(char *player_1, char *player_2, int map_1[10][10], int map_2[10][10]){
@@ -55,29 +54,12 @@ int main(int argc, char *argv[]){
         scanf("%s",position);
         x2 = atoi(&position[0]);
         y2 = atoi(&position[2]);
-        if(x1 == x2){
-            if((y1 - y2) == 5)
-                for(j = x1; j < y1; j++){
-                    map_1[x1 - 1][j - 1] = 1;
+        if(x1 > 0  || x2 > 0 || y1 > 0 || y2 > 0 || x1 < 10 || x2 < 10 || y1 < 10 || y2 < 10)
+            if ( (x1 == x2 && y1 != y2) || (x1 != x2 && y1 == y2) )
+                if ( (abs(x1 - x2) == 5 && y1 == y2) || (x1 == x2 && abs(y1 - y2) == 5) ) {
                 }
-            if((y2 - y1) == 5)
-                for(j = x1; j < y2; j++){
-                    map_1[x1 - 1][j - 1] = 1;
-                }
-        }
-        if(y1 == y2){
-            if((x1 - x2) == 5)
-                for(i = y1; i < x1; i++){
-                    map_1[i - 1][y1 - 1] = 1;
-                }
-            if((x2 - x1) == 5)
-                for(i = y2; i < x2; i++){
-                    map_1[i - 1][y2 - 1] = 1;
-                }
-        }
         RenderFrame(player_1, player_2, map_1, map_2);
     }
     //...
     return EXIT_SUCCESS;
 }
-
