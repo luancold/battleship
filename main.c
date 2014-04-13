@@ -2,18 +2,19 @@
 #include <stdlib.h>
 
 // Funcao para renderizar cada frame
-int RenderFrame(char *player_1, char *player_2, int map_1[10][10], int map_2[10][10])
-{
+int RenderFrame(char *player_1, char *player_2, int map_1[10][10], int map_2[10][10]){
     int i,j; // Variaveis utilizadas para iteracao das matrizes de campo
     system("cls"); // Limpar console antes da renderizacao
 
     printf("Campo de %s\t\t\tCampo de %s\n\n",player_1, player_2);
-    printf("  1 2 3 4 5 6 7 8 9 10\t\t\t  1 2 3 4 5 6 7 8 9 10\n");
+    printf("  1 2 3 4 5 6 7 8 9 10\t\t\t 1 2 3 4 5 6 7 8 9 10\n");
     for(i = 0; i < 10; i++){
         printf("%c ",65 + i);
         for(j = 0; j < 10; j++){
             if(map_1[i][j] == 0)
-                    printf("%c ",126);
+                printf("%c ",126);
+            if(map_1[i][j] == 1)
+                printf("%c ",35);
         }
         printf("\n");
     }
@@ -22,6 +23,9 @@ int RenderFrame(char *player_1, char *player_2, int map_1[10][10], int map_2[10]
 
 int main(int argc, char *argv[]){
 
+    int ships;
+    char *position;
+    int x1,y1,x2,y2;
     // Checagem de parametro
     if( argc < 2 ){
         printf("Passe o nome do jogador como parametro\n");
@@ -41,9 +45,38 @@ int main(int argc, char *argv[]){
             map_1[i][j] = 0;
         }
     }
-
-    RenderFrame(player_1, player_2, map_1, map_2);
-
+    for(ships = 0;  ships < 4; ships++){
+        printf("Posicao inicial do Barco de Tamanho 5(X,Y): ");
+        scanf("%s",position);
+        x1 = atoi(&position[0]);
+        y1 = atoi(&position[2]);
+        printf("Posicao final do Barco de Tamanho 5(X,Y): ");
+        scanf("%s",position);
+        x2 = atoi(&position[0]);
+        y2 = atoi(&position[2]);
+        if(x1 == x2){
+            if((y1 - y2) == 5)
+                for(j = x1; j < y1; j++){
+                    map_1[x1 - 1][j - 1] = 1;
+                }
+            if((y2 - y1) == 5)
+                for(j = x1; j < y2; j++){
+                    map_1[x1 - 1][j - 1] = 1;
+                }
+        }
+        if(y1 == y2){
+            if((x1 - x2) == 5)
+                for(i = y1; i < x1; i++){
+                    map_1[i - 1][y1 - 1] = 1;
+                }
+            if((x2 - x1) == 5)
+                for(i = y2; i < x2; i++){
+                    map_1[i - 1][y2 - 1] = 1;
+                }
+        }
+        RenderFrame(player_1, player_2, map_1, map_2);
+    }
     //...
     return EXIT_SUCCESS;
 }
+
