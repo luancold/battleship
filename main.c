@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "table.h"
 
 // Funcao para renderizar cada frame
 int RenderFrame(char *player_1, char *player_2, int map_1[10][10], int map_2[10][10]){
